@@ -116,6 +116,7 @@ const postcssPlugins = function (loader) {
     ];
 };
 
+const ScriptPaths = require('./src/renderer/GlobleJs').script();
 
 module.exports = {
     "resolve": {
@@ -390,9 +391,7 @@ module.exports = {
             "name": "scripts",
             "sourceMap": true,
             "filename": "scripts.bundle.js",
-            "scripts": [
-                "C:\\Users\\aman\\Desktop\\electron-angular\\node_modules\\jquery\\dist\\jquery.js"
-            ],
+            "scripts": ScriptPaths,
             "basePath": "C:\\Users\\aman\\Desktop\\electron-angular"
         }),
         new CopyWebpackPlugin([

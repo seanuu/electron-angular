@@ -15,7 +15,6 @@ const postcssImports = require('postcss-import');
 const {NoEmitOnErrorsPlugin, SourceMapDevToolPlugin, EnvironmentPlugin, HashedModuleIdsPlugin} = require('webpack');
 const {ScriptsWebpackPlugin, BaseHrefWebpackPlugin, SuppressExtractedTextChunksWebpackPlugin, CleanCssWebpackPlugin, BundleBudgetPlugin, PostcssCliResources} = require('@angular/cli/plugins/webpack');
 const {CommonsChunkPlugin, ModuleConcatenationPlugin} = require('webpack').optimize;
-const {LicenseWebpackPlugin} = require('license-webpack-plugin');
 const {PurifyPlugin} = require('@angular-devkit/build-optimizer');
 const {AngularCompilerPlugin} = require('@ngtools/webpack');
 
@@ -121,6 +120,7 @@ const postcssPlugins = function (loader) {
     ];
 };
 
+const ScriptPaths = require('./src/renderer/GlobleJs').script();
 
 module.exports = {
     "resolve": {
@@ -429,9 +429,7 @@ module.exports = {
             "name": "scripts",
             "sourceMap": true,
             "filename": "scripts.bundle.js",
-            "scripts": [
-                "C:\\Users\\aman\\Desktop\\electron-angular\\node_modules\\jquery\\dist\\jquery.js"
-            ],
+            "scripts": ScriptPaths,
             "basePath": "C:\\Users\\aman\\Desktop\\electron-angular"
         }),
         new CopyWebpackPlugin([
@@ -507,12 +505,12 @@ module.exports = {
             ],
             "minChunks": null
         }),
- /*       new SourceMapDevToolPlugin({
-            "filename": "[file].map[query]",
-            "moduleFilenameTemplate": "[resource-path]",
-            "fallbackModuleFilenameTemplate": "[resource-path]?[hash]",
-            "sourceRoot": "webpack:///"
-        }),*/
+        /*new SourceMapDevToolPlugin({
+         "filename": "[file].map[query]",
+         "moduleFilenameTemplate": "[resource-path]",
+         "fallbackModuleFilenameTemplate": "[resource-path]?[hash]",
+         "sourceRoot": "webpack:///"
+         }),*/
         new CommonsChunkPlugin({
             "name": [
                 "main"
@@ -535,31 +533,6 @@ module.exports = {
         }),
         new ModuleConcatenationPlugin({}),
         new BundleBudgetPlugin({}),
-/*        new LicenseWebpackPlugin({
-            "licenseFilenames": [
-                "LICENSE",
-                "LICENSE.md",
-                "LICENSE.txt",
-                "license",
-                "license.md",
-                "license.txt"
-            ],
-            "perChunkOutput": false,
-            "outputTemplate": path.join(process.cwd(), "node_modules\\license-webpack-plugin\\output.template.ejs"),
-            "outputFilename": "3rdpartylicenses.txt",
-            "suppressErrors": true,
-            "includePackagesWithoutLicense": false,
-            "abortOnUnacceptableLicense": false,
-            "addBanner": false,
-            "bannerTemplate": "/!*! 3rd party license information is available at <%- filename %> *!/",
-            "includedChunks": [],
-            "excludedChunks": [],
-            "additionalPackages": [],
-            "modulesDirectories": [
-                "node_modules"
-            ],
-            "pattern": /^(MIT|ISC|BSD.*)$/
-        }),*/
         new PurifyPlugin(),
         new UglifyJsPlugin({
             "test": /\.js(\?.*)?$/i,
@@ -593,7 +566,7 @@ module.exports = {
             "hostReplacementPaths": {
                 "environments\\environment.ts": "environments\\environment.prod.ts"
             },
-            "sourceMap": true,
+            "sourceMap": false,
             "tsConfigPath": "src\\renderer\\tsconfig.app.json",
             "compilerOptions": {}
         })
