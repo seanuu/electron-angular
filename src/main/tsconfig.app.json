@@ -1,0 +1,16 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../../dist/main",
+        "baseUrl": "./",
+        "module": "commonjs",
+        "sourceMap": true,
+        "types": [],
+        "removeComments": true,
+        "allowJs": true
+    },
+    "exclude": [
+        "test.ts",
+        "**/*.spec.ts"
+    ]
+}
